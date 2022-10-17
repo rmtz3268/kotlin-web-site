@@ -6,9 +6,9 @@ of items (possibly zero) that are significant to the problem being solved and ar
 Collections are a common concept for most programming languages, so if you're familiar with, for example, Java or Python 
 collections, you can skip this introduction and proceed to the detailed sections. 
 
-A collection usually contains a number of objects (this number may also be zero) of the same type. Objects in a collection
-are called _elements_ or _items_. For example, all the students in a department form a collection that can be used to
-calculate their average age. 
+A collection usually contains a number of objects (this number may also be zero) of the same type. However if you need them to,
+collections can contain objects of different types. Objects in a collection are called _elements_ or _items_. For example,
+all the students in a department form a collection that can be used to calculate their average age.
 
 The following collection types are relevant for Kotlin:
 
@@ -29,6 +29,12 @@ collections of any type.
 
 The collection interfaces and related functions are located in the `kotlin.collections` package. Let's get an overview 
 of its contents.
+
+> Arrays are not a type of collection. 
+> Arrays have a fixed size and their elements **must** all be of the same type.
+> For more information, see [Arrays](arrays.md).
+>
+{type="note"}
 
 ## Collection types
 
@@ -287,3 +293,28 @@ The default implementation of `MutableMap` – [`LinkedHashMap`](https://kotlinl
 preserves the order of elements insertion when iterating the map.
 In turn, an alternative implementation – [`HashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/index.html) – 
 says nothing about the elements order.
+
+### ArrayDeque
+
+[`ArrayDeque<T`>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/) is an implementation of a double-ended queue, which allows you to add or remove elements both at the beginning or end of the queue.
+It is a type of collection that uses a resizable `Array`. The `Array` is resized only when it is full.
+
+```kotlin
+fun main() {
+    val deque = ArrayDeque(listOf(1, 2, 3))
+
+    deque.addFirst(0)
+    deque.addLast(4)
+    println(deque) // [0, 1, 2, 3, 4]
+
+    println(deque.first()) // 0
+    println(deque.last()) // 4
+
+    deque.removeFirst()
+    deque.removeLast()
+    println(deque) // [1, 2, 3]
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
+
+For more information about arrays, see [Arrays](arrays.md).
