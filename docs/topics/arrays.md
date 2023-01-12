@@ -3,7 +3,7 @@
 > Before you use an array, we strongly recommend that you consider using a [collection](collections-overview.md) instead.
 > Collections have many benefits:
 >   * They can be mutable or immutable
->   * You can dynamically add or remove elements from them
+>   * You can add or remove elements from mutable collections
 >   * They have no boxing overhead
 >
 {type="note"}
@@ -105,13 +105,12 @@ Arrays can be nested within each other to create multidimensional arrays:
 ```kotlin
 fun main() {
 //sampleStart
-    // Creates a two-dimensional array [[0, 0], [0, 0]]
-    val twoDArray = Array(2) { IntArray(2) }
+    // Creates a two-dimensional array
+    val twoDArray = Array(2) { Array<Int>(2) { 0 } }
     println(twoDArray.contentDeepToString())
 
-    // Creates a three-dimensional array 
-    // [[[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]]]
-    val threeDArray = Array(3) { Array(3) { IntArray(3)} }
+    // Creates a three-dimensional array
+    val threeDArray = Array(3) { Array(3) { Array<Int>(3) { 0 } } }
     println(threeDArray.contentDeepToString())
 //sampleEnd
 }
@@ -130,12 +129,15 @@ Arrays are always mutable. To access and modify elements in an array, use the [i
 fun main() {
 //sampleStart
     val simpleArray = arrayOf(1, 2, 3)
+    val twoDArray = Array(2) { Array<Int>(2) { 0 } }
     
-    // Accesses the element at index 0 and modifies the value to 10
+    // Accesses the element and modifies it
     simpleArray[0] = 10
+    twoDArray[0][0] = 2
     
-    // Prints content of the array at index 0: 10
-    println(simpleArray[0].toString())
+    // Prints the modified element
+    println(simpleArray[0].toString()) // 10
+    println(twoDArray[0][0].toString()) // 2
 //sampleEnd
 }
 ```
@@ -218,7 +220,7 @@ fun main() {
 
 ### Zip
 
-To combine two arrays into an array of pairs, use the [zip()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/zip.html) function.
+To combine two arrays into an array of [`Pair`]((https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/)), use the [zip()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/zip.html) function.
 
 ```Kotlin
 fun main() { 
@@ -234,7 +236,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="zip-array-kotlin"}
 
-To return a pair of lists from an array of pairs, use the [unzip()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/unzip.html) function.
+To return a pair of lists from an array of `Pair`, use the [unzip()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/unzip.html) function.
 
 ```Kotlin
 fun main() { 
@@ -269,7 +271,7 @@ fun main() {
 ## Use arrays with variable number of arguments
 
 In some cases it is useful to be able to pass a variable number of arguments to a function without having to define the number of arguments in advance.
-In Kotlin you can use the `vararg` parameter for this. If you want to pass your arguments to a function as the contents of an array, use the _spread_ operator (`*`).
+In Kotlin you can use the `vararg` parameter for this. If you want to pass your variable number of arguments to a function as the contents of an array, use the _spread_ operator (`*`).
 The spread operator passes each element of your array as individual arguments to your chosen function.
 
 ```kotlin
@@ -291,6 +293,11 @@ For more information, see [Variable number of arguments (varargs)](functions.md#
 ## Convert to collection
 
 To convert an array to a [collection](collections-overview.md) (`List`, `Set` or `Map`), use the [`toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html), [`toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html), [`toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) functions respectively.
+
+> Only an array of [`Pair`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/) can be converted to a map: `Array<Pair<K,V>>`.
+> The first value of a `Pair` instance becomes a key and the second becomes a value.
+>
+{type="note"}
 
 ```kotlin
 fun main() {
@@ -323,7 +330,7 @@ Kotlin also has classes that represent arrays of primitive types without boxing 
 |[`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/)|[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/)|[`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)|[`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)|
 
 These classes have no inheritance relation to the `Array` class, but they
-have the same set of methods and properties.
+have the same set of methods and properties. They are equivalent to `boolean()`, `byte()`, `char()`, `double()`, `float()`, `int()`, `long()`, and `short()` classes representing arrays of primitive types in Java.
 
 ```kotlin
 fun main() {
