@@ -6,7 +6,7 @@ of items (possibly zero) that are significant to the problem being solved and ar
 Collections are a common concept for most programming languages, so if you're familiar with, for example, Java or Python 
 collections, you can skip this introduction and proceed to the detailed sections. 
 
-A collection usually contains a number of objects (this number may also be zero) of the same type. Objects in a collection
+A collection usually contains a number of objects of the same type (and its subtypes). Objects in a collection
 are called _elements_ or _items_. For example, all the students in a department form a collection that can be used to
 calculate their average age.
 
@@ -296,7 +296,7 @@ says nothing about the elements order.
 ### ArrayDeque
 
 [`ArrayDeque<T`>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/) is an implementation of a double-ended queue, which allows you to add or remove elements both at the beginning or end of the queue.
-As such, ArrayDeque also fills the role of both a Stack and Queue data structure in Kotlin. It is a type of collection that uses a resizable `Array`. The `Array` is resized only when it is full.
+As such, `ArrayDeque` also fills the role of both a Stack and Queue data structure in Kotlin. Behind the scenes, `ArrayDeque` is realized using a resizable Array that automatically adjusts in size when required.
 
 ```kotlin
 fun main() {

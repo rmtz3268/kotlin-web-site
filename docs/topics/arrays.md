@@ -1,14 +1,11 @@
 [//]: # (title: Arrays)
 
-> Before you use an array, we strongly recommend that you consider using a [collection](collections-overview.md) instead.
-> Collections have many benefits:
->   * They can be mutable or immutable
->   * You can add or remove elements from mutable collections
->   * They have no boxing overhead
->
-{type="note"}
+ Before you use an array, we strongly recommend that you consider using a [collection](collections-overview.md) instead. 
+ Collections have many benefits:
+   * They can be mutable or read-only
+   * You can add or remove elements from mutable collections
 
-Arrays in Kotlin are represented by the `Array` class. Arrays are always mutable and have a fixed size.
+Arrays in Kotlin are represented by the `Array` class which stores objects. Arrays are always mutable and have a fixed size. 
 
 ## Create arrays
 
@@ -64,7 +61,7 @@ fun main() {
 >
 {type="note"}
 
-You can assign an array to a variable. With this approach it may seem that you can dynamically add or remove elements to the array but Kotlin is actually creating a new array each time. We recommend that you use [mutable collections](collections-overview.md) instead, which are designed to make it easy to add and remove elements.
+You can assign an array to a variable. With this approach it may seem that you can dynamically add or remove elements to the array, but Kotlin is actually creating a new array each time. We recommend that you use [mutable collections](collections-overview.md) instead, which are designed to make it easy to add and remove elements.
 
 ```kotlin
 fun main() {
@@ -123,7 +120,7 @@ fun main() {
 
 ## Access and modify elements
 
-Arrays are always mutable. To access and modify elements in an array, use the [indexed access operator](operator-overloading.md#indexed-access-operator):
+Arrays are always mutable. To access and modify elements in an array, use the [indexed access operator](operator-overloading.md#indexed-access-operator)`[]`:
 
 ```kotlin
 fun main() {
@@ -268,36 +265,34 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="concatenate-array-kotlin"}
 
-## Use arrays with variable number of arguments
+## Pass variable number of arguments to a function
 
 In some cases it is useful to be able to pass a variable number of arguments to a function without having to define the number of arguments in advance.
-In Kotlin you can use the `vararg` parameter for this. If you want to pass your variable number of arguments to a function as the contents of an array, use the _spread_ operator (`*`).
-The spread operator passes each element of your array as individual arguments to your chosen function.
+In Kotlin you can use the [`vararg`](functions.md#variable-number-of-arguments-varargs) parameter for this. To pass a variable number of arguments to a function as the contents of an array, use the _spread_ operator (`*`).
+The spread operator passes each element of the array as individual arguments to your chosen function.
 
 ```kotlin
 fun main() {
-    val lettersArray = arrayOf("c", "d")
-    val lettersList = listOf("e", "f")
-    printAllStrings("a", "b", *lettersArray, *lettersList.toTypedArray())
+ val lettersArray = arrayOf("c", "d")
+ printAllStrings("a", "b", *lettersArray)
 }
 
 fun printAllStrings(vararg strings: String) {
-    for(string in strings) {
-        println(string)
-    }
+ for(string in strings) {
+  println(string)
+ }
 }
 ```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="vararg-array-kotlin"}
 
 For more information, see [Variable number of arguments (varargs)](functions.md#variable-number-of-arguments-varargs).
 
 ## Convert to collection
 
-To convert an array to a [collection](collections-overview.md) (`List`, `Set` or `Map`), use the [`toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html), [`toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html), [`toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) functions respectively.
+Arrays can be converted to [collections](collections-overview.md).
 
-> Only an array of [`Pair`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/) can be converted to a map: `Array<Pair<K,V>>`.
-> The first value of a `Pair` instance becomes a key and the second becomes a value.
->
-{type="note"}
+### Convert to List or Set
+To convert an array to a `List` or `Set`, use the [`toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html) and [`toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) functions.
 
 ```kotlin
 fun main() {
@@ -309,16 +304,28 @@ fun main() {
     
     // Convert to List ["a", "b", "c", "c"]
     println(simpleArray.toList())
+//sampleEnd
+}
+```
 
-    val pairArray = arrayOf(Pair(1,1), Pair(2,2), Pair(3,3))
-    
-    // Convert to Map {1=1, 2=2, 3=3}
+### Convert to Map
+
+To convert an array to a `map`, use the [`toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) function.
+Only an array of [`Pair`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/) can be converted to a map: `Array<Pair<K,V>>`.
+The first value of a `Pair` instance becomes a key and the second becomes a value.
+
+```kotlin
+fun main() {
+//sampleStart
+    val pairArray = arrayOf(Pair("Afghanistan","Kabul"), Pair("Albania","Tirana"), Pair("Algeria","Algiers"))
+
+    // Convert to Map {Afghanistan=Kabul, Albania=Tirana, Algeria=Algiers}
+    // The keys are countries and the values are their capital cities
     println(pairArray.toMap())
     
 //sampleEnd
 }
 ```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="convert-array-kotlin"}
 
 ## Primitive type arrays
 
@@ -330,7 +337,7 @@ Kotlin also has classes that represent arrays of primitive types without boxing 
 |[`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/)|[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/)|[`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)|[`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)|
 
 These classes have no inheritance relation to the `Array` class, but they
-have the same set of methods and properties. They are equivalent to `boolean()`, `byte()`, `char()`, `double()`, `float()`, `int()`, `long()`, and `short()` classes representing arrays of primitive types in Java.
+have the same set of methods and properties. They are equivalent to `boolean[]`, `byte[]`, `char[]`, `double[]`, `float[]`, `int[]`, `long[]`, and `short[]` arrays of primitive types in Java.
 
 ```kotlin
 fun main() {
