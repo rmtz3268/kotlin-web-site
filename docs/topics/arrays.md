@@ -1,15 +1,38 @@
 [//]: # (title: Arrays)
 
- Before you use an array, we strongly recommend that you consider using a [collection](collections-overview.md) instead. 
- Collections have many benefits:
-   * They can be mutable or read-only
-   * You can add or remove elements from mutable collections
+Arrays in Kotlin are represented by the [`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) class. This class always stores objects.
+If your array values are primitives, this has a performance impact because your primitives are boxed into objects.
+To avoid boxing when your array contains values of primitive type, use the specialized classes for [primitive type arrays](#primitive-type-arrays).
 
-Arrays in Kotlin are represented by the `Array` class which stores objects. Arrays are always mutable and have a fixed size. 
+## When to use arrays
+
+You can use arrays in Kotlin when you have specialized low-level requirements that you need to meet. For example, if you have tight performance requirements, or you need to build custom data structures. If you don't have these sorts of restrictions, we strongly recommend that you consider using a [collection](collections-overview.md) instead.
+
+Collections have many benefits compared to arrays. Whereas arrays are always mutable, collections can be read-only. This gives you more control and allows you to write robust code that has a clear intent.
+
+In addition, arrays are fixed in size. The only way to add or remove elements from an array is to create a new array each time, which is very inefficient. In comparison, collections are designed to make it easy to add or remove elements.
+
+```kotlin
+fun main() {
+//sampleStart
+    var riversArray = arrayOf("Nile", "Amazon", "Yangtze")
+    
+    // Using the += assignment operation creates a new riversArray,
+    // copies over the original elements and adds "Mississippi"
+    riversArray += "Mississippi"
+    println(riversArray.joinToString())
+//sampleEnd
+}
+```
+{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="rivers-array-kotlin"}
+
+And finally, to compare if two arrays are structurally equal you can't use the equality operator (`==`). You have to use a special function, which you can read more about in [Compare arrays](#compare-arrays).
+
+For more information about collections, see [Collections overview](collections-overview.md).
 
 ## Create arrays
 
-To create an array, use the [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) function and pass the item values to it. For example:
+To create an array, use the [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) function and pass the item values to it:
 
 ```kotlin
 fun main() {
@@ -60,21 +83,6 @@ fun main() {
 > Indices start at 0 in Kotlin.
 >
 {type="note"}
-
-You can assign an array to a variable. With this approach it may seem that you can dynamically add or remove elements to the array, but Kotlin is actually creating a new array each time. We recommend that you use [mutable collections](collections-overview.md) instead, which are designed to make it easy to add and remove elements.
-
-```kotlin
-fun main() {
-//sampleStart
-    var riversArray = arrayOf("Nile", "Amazon", "Yangtze")
-    
-    // Using the += assignment operation creates a new riversArray, copies over the original elements and adds "Mississippi"
-    riversArray += "Mississippi"
-    println(riversArray.joinToString())
-//sampleEnd
-}
-```
-{kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="rivers-array-kotlin"}
 
 ### Empty arrays
 
@@ -146,7 +154,7 @@ see [Type Projections](generics.md#type-projections)).
 
 ## Compare arrays
 
-To compare whether two arrays have the same elements in the same order, use [`contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html).
+To compare whether two arrays have the same elements in the same order, use [`contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html) and [`contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html):
 
 ```kotlin
 fun main() {
@@ -157,9 +165,10 @@ fun main() {
     // Compares contents of arrays: true
     println(simpleArray.contentEquals(anotherArray))
 
-    // Compares contents of arrays after an element is changed: false
+    // Using infix notation, compares contents of arrays after an element 
+    // is changed: false
     simpleArray[0] = 10
-    println(simpleArray.contentEquals(anotherArray))
+    println(simpleArray contentEquals anotherArray)
 //sampleEnd
 }
 ```
@@ -317,10 +326,12 @@ The first value of a `Pair` instance becomes a key and the second becomes a valu
 ```kotlin
 fun main() {
 //sampleStart
-    val pairArray = arrayOf(Pair("Afghanistan","Kabul"), Pair("Albania","Tirana"), Pair("Algeria","Algiers"))
+    val pairArray = arrayOf(Pair("apple","120"), Pair("banana","150"), Pair("cherry","90"), Pair("apple","140"))
 
-    // Convert to Map {Afghanistan=Kabul, Albania=Tirana, Algeria=Algiers}
-    // The keys are countries and the values are their capital cities
+    // Convert to Map {apple=140, banana=150, cherry=90}
+    // The keys are fruits and the values are their number of calories
+    // Note how keys must be unique, so the latest value of "apple"
+    // overwrites the first
     println(pairArray.toMap())
     
 //sampleEnd
@@ -329,7 +340,8 @@ fun main() {
 
 ## Primitive type arrays
 
-Kotlin also has classes that represent arrays of primitive types without boxing overhead:
+If you have an array of `Array` class that contains primitives, these values are boxed into objects. 
+As an alternative, you can use primitive type arrays, which allow you to store primitives in an array without boxing overhead:
 
 | | | | |
 |--|--|--|--|
@@ -349,11 +361,13 @@ fun main() {
 }
 ```
 
-> To convert primitive arrays to typed arrays, use [`toTypedArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-typed-array.html).
->
+> To convert primitive type arrays to arrays, use [`toTypedArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-typed-array.html).
+> 
+> To convert arrays to primitive type arrays, use [`toBooleanArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-boolean-array.html), [`toByteArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-byte-array.html), [`toCharArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-char-array.html), and so on.
+> 
 {type="note"}
 
 ## What's next?
 
-* Learn about [collections](collections-overview.md)
-* Learn about other [basic types](basic-types.md)
+* To learn more about why we recommend using collections for most use cases, read our [Collections overview](collections-overview.md).
+* Learn about other [basic types](basic-types.md).

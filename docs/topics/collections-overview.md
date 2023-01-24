@@ -30,8 +30,7 @@ collections of any type.
 The collection interfaces and related functions are located in the `kotlin.collections` package. Let's get an overview 
 of its contents.
 
-> Arrays are not a type of collection. 
-> Arrays have a fixed size. For more information, see [Arrays](arrays.md).
+> Arrays are not a type of collection. For more information, see [Arrays](arrays.md).
 >
 {type="note"}
 
@@ -296,7 +295,7 @@ says nothing about the elements order.
 ### ArrayDeque
 
 [`ArrayDeque<T`>](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/) is an implementation of a double-ended queue, which allows you to add or remove elements both at the beginning or end of the queue.
-As such, `ArrayDeque` also fills the role of both a Stack and Queue data structure in Kotlin. Behind the scenes, `ArrayDeque` is realized using a resizable Array that automatically adjusts in size when required.
+As such, `ArrayDeque` also fills the role of both a Stack and Queue data structure in Kotlin. Behind the scenes, `ArrayDeque` is realized using a resizable array that automatically adjusts in size when required.
 
 ```kotlin
 fun main() {
