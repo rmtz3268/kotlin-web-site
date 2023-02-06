@@ -1,6 +1,6 @@
 [//]: # (title: Arrays)
 
-An array is a data structure that holds a fixed number of values of the same type. 
+An array is a data structure that holds a fixed number of values of the same type or its subtypes. 
 The most common type of array in Kotlin is the object-type array, represented by the [`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) class.
 If you need to manage primitive-type values, use the specialized classes for [primitive-type arrays](#primitive-type-arrays).
 
@@ -182,7 +182,7 @@ fun main() {
 > Don't use equality (`==`) and inequality (`!=`) [operators](equality.md#structural-equality) to compare the contents of arrays. These operators
 > check whether the assigned variables point to the same object.
 > 
-> For an explanation why we have this behavior for arrays, see our [blog post](https://blog.jetbrains.com/kotlin/2015/09/feedback-request-limitations-on-data-classes/#Appendix.Comparingarrays).
+> For an explanation why arrays in Kotlin behave this way, see our [blog post](https://blog.jetbrains.com/kotlin/2015/09/feedback-request-limitations-on-data-classes/#Appendix.Comparingarrays).
 > 
 {type="warning"}
 
@@ -295,7 +295,7 @@ fun main() {
 
 To convert an array to a `map`, use the [`toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) function.
 Only an array of [`Pair<K,V>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/) can be converted to a map.
-The first value of a `Pair` instance becomes a key and the second becomes a value. In the example below, we use the [infix notation](functions.md#infix-notation) to call the [`to()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) function to create tuples of `Pair`.
+The first value of a `Pair` instance becomes a key and the second becomes a value. In the example below, we use the [infix notation](functions.md#infix-notation) to call the [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) function to create tuples of `Pair`.
 
 ```kotlin
 fun main() {
@@ -311,12 +311,6 @@ fun main() {
 //sampleEnd
 }
 ```
-
-> To convert primitive type arrays to object type arrays, use [`toTypedArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-typed-array.html).
->
-> To convert object type arrays to primitive type arrays, use [`toBooleanArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-boolean-array.html), [`toByteArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-byte-array.html), [`toCharArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-char-array.html), and so on.
->
-{type="note"}
 
 ## Primitive-type arrays
 
