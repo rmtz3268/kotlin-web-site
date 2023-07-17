@@ -43,9 +43,12 @@ A pair of interfaces represent each collection type:
 * A _mutable_ interface that extends the corresponding read-only interface with write operations: adding, removing, and 
 updating its elements.
 
-Note that altering a mutable collection doesn't require it to be a [`var`](basic-syntax.md#variables): write operations
-modify the same mutable collection object, so the reference doesn't change.
-Although, if you try to reassign a `val` collection, you'll get a compilation error.
+Note that a mutable collection doesn't have to be assigned to a [`var`](basic-syntax.md#variables). Write operations with
+a mutable collection are still possible even if it is assigned to a `val`. The benefit of assigning mutable collections to
+`val` is that you protect the reference to the mutable collection from modification. Over time, as your code grows and becomes
+more complex, it becomes even more important to prevent unintentional modification to references. So we always recommend
+using `val` as much as possible because this leads to safer and more robust code. If you try to reassign a `val` collection,
+you get a compilation error:
 
 ```kotlin
 fun main() {
