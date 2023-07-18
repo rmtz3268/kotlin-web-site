@@ -353,18 +353,70 @@ If you use the `Array` class with primitive values, these values are boxed into 
 As an alternative, you can use these primitive-type arrays, which allow you to store primitives in an array without the
 side effect of boxing overhead:
 
-| | | | |
-|--|--|--|--|
-|[`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/)|[`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/)|[`CharArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/)|[`DoubleArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/)|
-|[`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/)|[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/)|[`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)|[`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)|
+<table header-style="none">
+        <tr>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/"><code>BooleanArray</code></a>
+        </td>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/"><code>ByteArray</code></a>
+        </td>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/"><code>CharArray</code></a>
+        </td>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/"><code>DoubleArray</code></a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/"><code>FloatArray</code></a>
+        </td>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/"><code>IntArray</code></a>
+        </td>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/"><code>LongArray</code></a>
+        </td>
+        <td>
+            <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/"><code>ShortArray</code></a>
+        </td>
+    </tr>
+</table>
 
 These classes have no inheritance relation to the `Array` class, but they
 have the same set of methods and properties. They are equivalent to the following arrays of primitive types in Java:
 
-| | | | |
-|-|--|-|-|
-|`boolean[]`|`byte[]`|`char[]`|`double[]`|
-|`float[]`|`int[]`|`long[]`|`short[]`|
+<table header-style="none">
+        <tr>
+        <td>
+            <code>boolean[]</code>
+        </td>
+        <td>
+            <code>byte[]</code>
+        </td>
+        <td>
+            <code>char[]</code>
+        </td>
+        <td>
+            <code>double[]</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <code>float[]</code>
+        </td>
+        <td>
+            <code>int[]</code>
+        </td>
+        <td>
+            <code>long[]</code>
+        </td>
+        <td>
+            <code>short[]</code>
+        </td>
+    </tr>
+</table>
 
 Here is an example of using a primitive-type array:
 
